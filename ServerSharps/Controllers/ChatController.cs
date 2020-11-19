@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.CompilerServices;
+using ServerSharps;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,7 +15,8 @@ namespace MesServer.Controllers
   [ApiController]
   public class ChatController : ControllerBase
   {
-
+    static MesClass ms = new MesClass();
+    static Users Us = new Users();
     // GET: api/<ChatController>
     [HttpGet]
     public string Get()
@@ -29,7 +31,7 @@ namespace MesServer.Controllers
       return all;
     }
 
-    static MesClass ms = new MesClass();
+    
     // GET api/<ChatController>/5
     [HttpGet("{id}")]
     public string Get(int id)
@@ -46,6 +48,13 @@ namespace MesServer.Controllers
     [HttpPost]
     public void Post([FromBody] message msg)
     {
+      User user = Us.users.Find(usr => usr.username == msg.username);
+
+      if (user == null)
+        Us.add(new User(msg.username, msg.hash));
+      else if (user.SHA256 != msg.hash)
+        return;
+
       ms.Add(msg);
     }
 

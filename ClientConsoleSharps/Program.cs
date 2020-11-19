@@ -4,26 +4,34 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading;
+using ClientConsoleSharps;
 using MesServer;
+using ServerSharps;
+
 namespace MesClientSharps
 {
   class Program
   {
     static int top = 0;
     static string url = "http://localhost:5000/api/chat/";
+    static Settings setts;
     static void Main(string[] args)
-    {
-
-
+    {       
+      setts = JsonSerializer.Deserialize<Settings>(File.ReadAllText("config.json"));
       
       Console.Write("Username:");
       string username = Console.ReadLine();
-      ThreadStart starter = new ThreadStart(Update);
-      Thread upd = new Thread(starter);
+
+      Console.Write("Password:");
+      string pass = Console.ReadLine();
+      string hash = Hashtool.GetHash(SHA256.Create(), pass);
 
 
+      Thread upd = new Thread(Update);
 
       while (true)
       {
@@ -35,7 +43,9 @@ namespace MesClientSharps
         Console.SetCursorPosition(("(" + username + ") Message:").Length, 0);
         string text = Console.ReadLine();
 
-        message msg = new message(username, text);
+
+
+        message msg = new message(username,hash, text);
         string json = JsonSerializer.Serialize(msg);
 
         var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -58,13 +68,13 @@ namespace MesClientSharps
 
     static int printAllMessages()
     {
-      List<String> temp = new List<string>();
+      List<string> temp = new List<string>();
       //int i = 0;
       //while(getMessage(i) != "not found")
       //  temp.Add(getMessage(i++));
       //temp.Reverse();
 
-      temp = getAllMessages().Split('\n', StringSplitOptions.RemoveEmptyEntries).ToList<String>();
+      temp = getAllMessages().Split('\n', StringSplitOptions.RemoveEmptyEntries).ToList<string>();
       foreach (string m in temp)
       {
         message msg = JsonSerializer.Deserialize<message>(m);
@@ -110,7 +120,7 @@ namespace MesClientSharps
     {
       while (true)
       {
-        Thread.Sleep(5000);
+        Thread.Sleep(setts.updateInterval);
         CASF();
       }
     }
