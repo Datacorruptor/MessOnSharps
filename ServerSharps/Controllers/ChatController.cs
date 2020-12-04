@@ -16,7 +16,6 @@ namespace MesServer.Controllers
   public class ChatController : ControllerBase
   {
     static MesClass ms = new MesClass();
-    static Users Us = new Users();
     // GET: api/<ChatController>
     [HttpGet]
     public string Get()
@@ -48,10 +47,10 @@ namespace MesServer.Controllers
     [HttpPost]
     public void Post([FromBody] message msg)
     {
-      User user = Us.users.Find(usr => usr.username == msg.username);
+      User user = Users.users.Find(usr => usr.username == msg.username);
 
       if (user == null)
-        Us.add(new User(msg.username, msg.hash));
+        Users.add(new User(msg.username, msg.hash));
       else if (user.SHA256 != msg.hash)
         return;
 

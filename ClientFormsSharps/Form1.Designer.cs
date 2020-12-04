@@ -41,6 +41,8 @@
       this.Emoji2 = new System.Windows.Forms.Button();
       this.Emoji3 = new System.Windows.Forms.Button();
       this.Emoji4 = new System.Windows.Forms.Button();
+      this.GoOnlineButton = new System.Windows.Forms.Button();
+      this.OnlineTextBox = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
       // Update
@@ -77,6 +79,7 @@
       // 
       // MessageText
       // 
+      this.MessageText.Enabled = false;
       this.MessageText.Location = new System.Drawing.Point(10, 13);
       this.MessageText.Name = "MessageText";
       this.MessageText.Size = new System.Drawing.Size(430, 20);
@@ -84,6 +87,7 @@
       // 
       // SendButton
       // 
+      this.SendButton.Enabled = false;
       this.SendButton.Location = new System.Drawing.Point(460, 13);
       this.SendButton.Name = "SendButton";
       this.SendButton.Size = new System.Drawing.Size(100, 21);
@@ -111,6 +115,7 @@
       // 
       // Emoji1
       // 
+      this.Emoji1.Enabled = false;
       this.Emoji1.Location = new System.Drawing.Point(460, 50);
       this.Emoji1.Name = "Emoji1";
       this.Emoji1.Size = new System.Drawing.Size(20, 20);
@@ -121,6 +126,7 @@
       // 
       // Emoji2
       // 
+      this.Emoji2.Enabled = false;
       this.Emoji2.Location = new System.Drawing.Point(486, 50);
       this.Emoji2.Name = "Emoji2";
       this.Emoji2.Size = new System.Drawing.Size(20, 20);
@@ -131,6 +137,7 @@
       // 
       // Emoji3
       // 
+      this.Emoji3.Enabled = false;
       this.Emoji3.Location = new System.Drawing.Point(512, 50);
       this.Emoji3.Name = "Emoji3";
       this.Emoji3.Size = new System.Drawing.Size(20, 20);
@@ -141,6 +148,7 @@
       // 
       // Emoji4
       // 
+      this.Emoji4.Enabled = false;
       this.Emoji4.Location = new System.Drawing.Point(538, 50);
       this.Emoji4.Name = "Emoji4";
       this.Emoji4.Size = new System.Drawing.Size(20, 20);
@@ -149,11 +157,34 @@
       this.Emoji4.UseVisualStyleBackColor = true;
       this.Emoji4.Click += new System.EventHandler(this.Emoji4_Click);
       // 
+      // GoOnlineButton
+      // 
+      this.GoOnlineButton.Location = new System.Drawing.Point(464, 192);
+      this.GoOnlineButton.Name = "GoOnlineButton";
+      this.GoOnlineButton.Size = new System.Drawing.Size(98, 23);
+      this.GoOnlineButton.TabIndex = 11;
+      this.GoOnlineButton.Text = "GO ONLINE!";
+      this.GoOnlineButton.UseVisualStyleBackColor = true;
+      this.GoOnlineButton.Click += new System.EventHandler(this.GoOnlineButton_Click);
+      // 
+      // OnlineTextBox
+      // 
+      this.OnlineTextBox.Cursor = System.Windows.Forms.Cursors.No;
+      this.OnlineTextBox.Location = new System.Drawing.Point(464, 230);
+      this.OnlineTextBox.Multiline = true;
+      this.OnlineTextBox.Name = "OnlineTextBox";
+      this.OnlineTextBox.ReadOnly = true;
+      this.OnlineTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+      this.OnlineTextBox.Size = new System.Drawing.Size(98, 209);
+      this.OnlineTextBox.TabIndex = 12;
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(574, 451);
+      this.Controls.Add(this.OnlineTextBox);
+      this.Controls.Add(this.GoOnlineButton);
       this.Controls.Add(this.Emoji4);
       this.Controls.Add(this.Emoji3);
       this.Controls.Add(this.Emoji2);
@@ -167,7 +198,9 @@
       this.Controls.Add(this.TextBoxMessages);
       this.Name = "Form1";
       this.Text = "Messenger+";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
       this.Load += new System.EventHandler(this.Form1_Load);
+      this.Resize += new System.EventHandler(this.Form1_Resize);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -187,6 +220,8 @@
     private System.Windows.Forms.Button Emoji2;
     private System.Windows.Forms.Button Emoji3;
     private System.Windows.Forms.Button Emoji4;
+    private System.Windows.Forms.Button GoOnlineButton;
+    private System.Windows.Forms.TextBox OnlineTextBox;
   }
 }
 

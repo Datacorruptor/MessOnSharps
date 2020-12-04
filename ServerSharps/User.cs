@@ -25,15 +25,15 @@ namespace ServerSharps
   [Serializable]
   public class Users
   {
-    public List<User> users = new List<User>();
+    static public List<User> users = new List<User>();
     static public string PATH = @"c:\temp\Users.txt";
-    public void add(User usr)
+    static public void add(User usr)
     {
       File.AppendAllText(PATH, JsonSerializer.Serialize(usr).ToString() + "\n");
       users.Add(usr);
       Console.WriteLine("Added new User " + usr.username + " with password " + usr.SHA256);
     }
-    public Users()
+    static Users()
     {
       if (File.Exists(PATH))
       {

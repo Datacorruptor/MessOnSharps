@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Hashtool.cs" />
     <Compile Include="MesServer.cs" />
+    <Compile Include="OnlineStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
